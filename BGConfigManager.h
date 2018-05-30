@@ -8,8 +8,10 @@
 
 class BGConfigManager
 {
-	using ConfigMap = std::map<std::string, std::string>;
-
+	using Key = std::string;
+	using Value = std::string;
+	using ConfigMap = std::map<Key, Value>;
+	
 public:
 	BGConfigManager();
 	~BGConfigManager();
@@ -19,9 +21,9 @@ public:
 
 
 	// config 값을 읽어 옵니다.
-	int GetInt();
-	std::string GetString();
-	double GetDouble();
+	std::string GetString(Key);
+	int GetInt(Key);
+	double GetDouble(Key);
 
 private:
 	// config 값들을 저장합니다.
