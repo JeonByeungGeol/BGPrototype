@@ -16,6 +16,9 @@
     <Filter Include="유틸">
       <UniqueIdentifier>{e8d3c6a3-b2b7-465a-9c4a-3bc3cb97872e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="설정">
+      <UniqueIdentifier>{e448a155-ccab-490e-8850-421ff2d5633a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -30,15 +33,21 @@
     <ClInclude Include="BGSingleton.h">
       <Filter>유틸</Filter>
     </ClInclude>
+    <ClInclude Include="BGConfigManager.h">
+      <Filter>유틸</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BGPrototype.cpp">
+    <ClCompile Include="BGSingleton.cpp">
+      <Filter>유틸</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BGSingleton.cpp">
+    <ClCompile Include="BGConfigManager.cpp">
       <Filter>유틸</Filter>
     </ClCompile>
   </ItemGroup>

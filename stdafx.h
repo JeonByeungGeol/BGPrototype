@@ -16,5 +16,10 @@
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 
+// std
+#include <map>
+
+
 // 유틸
 #include "BGSingleton.h"
+#include "BGConfigManager.h"
