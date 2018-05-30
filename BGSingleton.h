@@ -21,6 +21,10 @@
  * </pre>
 */
 
+/** define으로 정의*/
+#define g_Config BGSingleton::Instance()->GetConfigManager()
+
+
 class BGSingleton
 {
 //////////////////////////////////////////////////
