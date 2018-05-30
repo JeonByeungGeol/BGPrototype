@@ -21,7 +21,7 @@ private:
 	
 protected:
 	BGSingleton() = default;
-	BGSingleton(const BGSingleton&) = default;
+	BGSingleton(const BGSingleton&) = delete;
 	BGSingleton& operator=(const BGSingleton&) = delete;
 
 public:
