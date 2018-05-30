@@ -20,7 +20,6 @@
  * 크기가 너무 큰 객체들은 넣지 않는다...
  * </pre>
 */
-class BGConfigManager;
 
 class BGSingleton
 {
@@ -57,5 +56,3 @@ public:
 
 };
 
-std::once_flag BGSingleton::onceflag_;
-std::unique_ptr<BGSingleton> BGSingleton::instance_{ nullptr };
