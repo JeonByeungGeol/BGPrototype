@@ -1,7 +1,6 @@
 #pragma once
 
-#include <mutex>
-
+#include "BGConfigManager.h"
 /**
  * std::once_flag는 초기화 하지 않으며 std::call_once와 연동되어 멀티스레드 환경에서
  * 단 한번만 실행되는 것을 운영체제 차원에서 보장해 주도록 구현되었다.
@@ -21,8 +20,12 @@
  * 크기가 너무 큰 객체들은 넣지 않는다...
  * </pre>
 */
+class BGConfigManager;
+
 class BGSingleton
 {
+//////////////////////////////////////////////////
+	/** 싱글톤 구현 부*/
 private:
 	static std::once_flag onceflag_;
 	static std::unique_ptr<BGSingleton> instance_;
@@ -39,6 +42,19 @@ public:
 		});
 		return instance_.get();
 	}
+//////////////////////////////////////////////////
+
+
+	/** 싱글톤으로 생성할 객체*/
+private:
+	BGConfigManager m_ConfigManager;
+
+public:
+	BGConfigManager& GetConfigManager() { return m_ConfigManager; }
+
+
+
+
 };
 
 std::once_flag BGSingleton::onceflag_;

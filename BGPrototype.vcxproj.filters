@@ -19,6 +19,9 @@
     <Filter Include="설정">
       <UniqueIdentifier>{e448a155-ccab-490e-8850-421ff2d5633a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="공통">
+      <UniqueIdentifier>{e987df6d-e727-4da1-b3ea-508e5a61b30d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -33,8 +36,11 @@
     <ClInclude Include="BGSingleton.h">
       <Filter>유틸</Filter>
     </ClInclude>
+    <ClInclude Include="BGConst.h">
+      <Filter>공통</Filter>
+    </ClInclude>
     <ClInclude Include="BGConfigManager.h">
-      <Filter>유틸</Filter>
+      <Filter>설정</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +54,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BGConfigManager.cpp">
-      <Filter>유틸</Filter>
+      <Filter>설정</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bg_config.ini">
+      <Filter>설정</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BGConfigManager.h"
 
-#include <fstream>
+
 
 BGConfigManager::BGConfigManager()
 {
