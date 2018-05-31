@@ -14,7 +14,7 @@ public:
 
 public:
 	bool Valid() { return m_logLevel != ELogLevel::NONE; }
-	bool IsStopRequest() { if (m_logLevel == ELogLevel::INFO && m_content == "STOP") return true; }
+	bool IsStopRequest() { if (m_logLevel == ELogLevel::INFO && m_content == "STOP") return true; return false; }
 
 private:
 	ELogLevel m_logLevel;
