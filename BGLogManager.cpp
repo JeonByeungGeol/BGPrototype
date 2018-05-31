@@ -106,12 +106,9 @@ bool BGLogManager::IsStopRequest(BGLog& log)
 */
 BGLog & BGLogManager::Pick()
 {
-	// ·Î±× ²¨³¿
-	BGLog log;
-
 	m_queueLock.lock();		//--*--*--*--*--*--*--
 
-	log = m_queue.front();
+	BGLog& log = m_queue.front();
 
 	if (!log.Valid()) {
 		m_queueLock.unlock();	//**-**-**-**-**-**
