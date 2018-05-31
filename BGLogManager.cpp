@@ -80,6 +80,11 @@ bool BGLogManager::Stop()
 	delete m_pRunThread;
 	m_pRunThread = nullptr;
 
+	for (auto iter = m_forderNameFileStreamMap.begin(); iter != m_forderNameFileStreamMap.end(); iter++) {
+		if ((iter->second).is_open()) 
+			(iter->second).close();		
+	}
+
 	return false;
 }
 
