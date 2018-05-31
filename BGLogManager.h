@@ -16,12 +16,19 @@
 class BGLogManager
 {
 	using LogQueue = std::queue<BGLog>;
+
+	using LogLevelLogNameMap = std::map<ELogLevel, std::string>;
+	using ForderNameFileStreamMap = std::map<std::string, std::fstream>;
+	using LogLevelForderNameMap = std::map<ELogLevel, std::string>;
 	
 public:
 	BGLogManager();
 	~BGLogManager();
 
 public:
+	// 로그 시스템에 필요한 설정을 합니다.
+	bool Init();
+
 	// 로그 시스템을 시작합니다.
 	bool Start();
 
@@ -51,5 +58,8 @@ private:
 
 	std::thread* m_pRunThread;
 	
+	LogLevelLogNameMap m_logLevelLogNameMap;
+	ForderNameFileStreamMap m_forderNameFileStreamMap;
+	LogLevelForderNameMap m_logLevelForderNameMap;
 };
 

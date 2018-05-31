@@ -10,5 +10,5 @@ enum ELogLevel
 	WARNING,
 	ERROR,
 	FATAL,
-
+	//EXTRACT_DATA
 };

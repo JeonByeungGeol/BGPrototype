@@ -12,15 +12,52 @@ BGLogManager::~BGLogManager()
 }
 
 /**
+ * !새로운 로그를 추가하면, 이곳에 추가해야 합니다.
+ * 로그 시스템에 필요한 설정을 합니다.
+ * logLevel 이 어떤 로그파일에 씌어야 하는지 설정합니다.
+ * 필요한 파일 스트림을 생성합니다.
+*/
+bool BGLogManager::Init()
+{
+	// 로그레벨 - 로그이름 매칭
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::NONE, "NONE"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::TRACE, "TRACE"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::DEBUG, "DEBUG"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::INFO, "INFO"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::WARNING, "WARNING"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::ERROR, "ERROR"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::FATAL, "FATAL"));
+	//m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA, "EXTRACT_DATA"));
+
+	// 폴더이름 - 파일스트림 매칭
+	m_forderNameFileStreamMap.insert(std::make_pair("log", std::fstream{}));	// default
+	m_forderNameFileStreamMap.insert(std::make_pair("err", std::fstream{}));
+	//m_forderNameFileStreamMap.insert(std::make_pair("extract_data", std::fstream{}));
+	
+	// 로그레벨 - 폴더이름 매칭 (매칭 안되있는 건 default폴더)
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::NONE, "err"));
+	// m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::TRACE, "TRACE"));
+	// m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::DEBUG, "DEBUG"));
+	// m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::INFO, "INFO"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::WARNING, "err"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::ERROR, "err"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::FATAL, "err"));
+	//m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA, "EXTRACT_DATA"));
+
+	return false;
+}
+
+/**
  * 이 함수를 호출하면 로그시스템이 시작합니다.
  * 로그를 찍는 전용 스레드를 만들어 동작
 */
 bool BGLogManager::Start()
 {
-	if (m_pRunThread != nullptr) {
-
+	if (!Init())
 		return false;
-	}
+
+	if (m_pRunThread != nullptr)
+		return false;
 
 	m_pRunThread = new std::thread{BGLogManager::Run, this};
 
