@@ -82,6 +82,10 @@ BGLog & BGLogManager::Pick()
 	return log;
 }
 
+/**
+ * 로그를 Queue에 넣습니다.
+ * 이후 전용스레드에서 하나씩 꺼내 처리합니다.
+*/
 void BGLogManager::Push(BGLog& log)
 {
 	m_queueLock.lock();
@@ -111,8 +115,7 @@ void BGLogManager::Run(BGLogManager* pLogMgr)
 		// 로그 파일 업데이트
 
 		// 로그 쓰기
-		pLogMgr->Write(log);
-				
+		pLogMgr->Write(log);				
 	}
 
 	return;

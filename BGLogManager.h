@@ -22,18 +22,25 @@ public:
 	~BGLogManager();
 
 public:
+	// 로그 시스템을 시작합니다.
 	bool Start();
+
+	// 로그 시스템을 종료합니다.
 	bool Stop();
 	
+	// 로그 시스템 종료요청로그인지 확인합니다.
 	bool IsStopRequest(BGLog&);
 
+	// queue에서 로그를 하나 꺼냅니다.
 	BGLog& Pick();
 
+	// queue에 로그를 넣습니다.
 	void Push(BGLog&);
 
-
+	// log를 기록합니다.
 	void Write(BGLog&);
 
+	// 로그 전용 스레드 함수 입니다.
 	static void Run(BGLogManager*);
 
 
