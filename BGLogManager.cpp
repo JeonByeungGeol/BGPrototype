@@ -30,24 +30,31 @@ bool BGLogManager::Start()
 
 /**
  * 이 함수를 호출하면 로그시스템이 종료합니다.
- * 로그 찍는 전용 스레드를 종료시킨 후에 삭제합니다.
+ * 로그 시스템 종료 요청 로그를 전용스레드에 보낸후에
+ * 로그전용 스레드가 확인하면, 스레드가 종료된 것을 확인한 뒤에
+ * true를 리턴합니다.
 */
 bool BGLogManager::Stop()
 {
-	
+	Push(BGLog{ ELogLevel::INFO, "STOP" });
+
+	m_pRunThread->join();
+
+	delete m_pRunThread;
+	m_pRunThread = nullptr;
 
 	return false;
 }
 
 /**
- * 로그 시스템이 동작해야하는지를 알려줍니다.
- * 초기에는 true를 리턴
- * Start호출 이후에는 false 리턴
- * Stop호출 이후에는 true 리턴
+ * 로그 시스템이 동작종료를 요청하는 로그가 들어왔는지 확인합니다.
+ * 종료 요청 로그는 [로그레벨 : INFO, 내용 : "STOP"] 입니다.
+ * 로그 전용 스레드에서만 호출 합니다.
+ * true를 리턴하면, 로그 전용 스레드는 종료됩니다.
 */
-bool BGLogManager::IsStop()
+bool BGLogManager::IsStopRequest(BGLog& log)
 {
-	return false;
+	return log.IsStopRequest();
 }
 
 /**
@@ -75,6 +82,13 @@ BGLog & BGLogManager::Pick()
 	return log;
 }
 
+void BGLogManager::Push(BGLog& log)
+{
+	m_queueLock.lock();
+	m_queue.push(log);
+	m_queueLock.unlock();
+}
+
 void BGLogManager::Write(BGLog &log)
 {
 }
@@ -85,14 +99,15 @@ void BGLogManager::Run(BGLogManager* pLogMgr)
 	BGLog log;
 
 	while (true)
-	{
-		if (pLogMgr->IsStop())
-			return;
-		
+	{		
 		log = pLogMgr->Pick();
 		if (!log.Valid())
 			continue;
 		
+		if (pLogMgr->IsStopRequest(log)) {
+			return;
+		}
+
 		// 로그 파일 업데이트
 
 		// 로그 쓰기

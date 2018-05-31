@@ -25,9 +25,12 @@ public:
 	bool Start();
 	bool Stop();
 	
-	bool IsStop();
+	bool IsStopRequest(BGLog&);
 
 	BGLog& Pick();
+
+	void Push(BGLog&);
+
 
 	void Write(BGLog&);
 

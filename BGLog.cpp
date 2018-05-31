@@ -2,11 +2,6 @@
 #include "BGLog.h"
 
 
-BGLog::BGLog()
-{
-}
-
-
 BGLog::~BGLog()
 {
 }
