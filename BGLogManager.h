@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BGLog.h"
 /**
  * <pre>
  * 로그를 관리한다.
@@ -14,8 +15,31 @@
 
 class BGLogManager
 {
+	using LogQueue = std::queue<BGLog>;
+	
 public:
 	BGLogManager();
 	~BGLogManager();
+
+public:
+	bool Start();
+	bool Stop();
+	
+	bool IsStop();
+
+	BGLog& Pick();
+
+	void Write(BGLog&);
+
+	static void Run(BGLogManager*);
+
+
+
+private:
+	std::mutex m_queueLock;
+	LogQueue m_queue;
+
+	std::thread* m_pRunThread;
+	
 };
 

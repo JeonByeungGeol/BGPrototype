@@ -17,8 +17,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+
 #include <map>
+#include <queue>
+
+#include <thread>
 #include <mutex>
+
 
 
 // °øÅë
