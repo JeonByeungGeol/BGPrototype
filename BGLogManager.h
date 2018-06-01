@@ -21,7 +21,7 @@ class BGLogManager
 	using LogQueue = std::queue<BGLog>;
 
 	using LogLevelLogNameMap = std::map<ELogLevel, std::string>;
-	using ForderNameFileStreamMap = std::map<std::string, std::fstream>;
+	using ForderNameFileStreamMap = std::map<std::string, std::fstream*>;
 	using LogLevelForderNameMap = std::map<ELogLevel, std::string>;
 	
 public:
@@ -56,13 +56,14 @@ public:
 	// log를 기록합니다.
 	void Write(BGLog&);
 	
+	bool CheckLogFileNameAndRenew();
+
+	void RenewLogFileStream();
+
 	///////////////////////////////
 	// 로그 전용 스레드 함수 입니다
 	///////////////////////////////
 	static void Run(BGLogManager*);
-
-
-
 
 private:
 	std::mutex m_queueLock;
@@ -70,8 +71,9 @@ private:
 
 	std::thread* m_pRunThread;
 	
-	std::fstream m_defaultLogFileStream;
-	std::fstream m_defaultLogFileName;
+	struct tm m_lastCreateFileName;
+
+	std::vector<std::pair<std::string, std::fstream*>> m_logFileStreamVec;
 
 	LogLevelLogNameMap m_logLevelLogNameMap;
 	ForderNameFileStreamMap m_forderNameFileStreamMap;

@@ -19,6 +19,10 @@ BGLogManager::~BGLogManager()
 */
 bool BGLogManager::Init()
 {
+	// 마지막 로그파일 생성 시간
+	m_lastCreateFileName.tm_hour = -1;
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 로그레벨 - 로그이름 매칭
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::NONE, "NONE"));
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::TRACE, "TRACE"));
@@ -26,24 +30,42 @@ bool BGLogManager::Init()
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::INFO, "INFO"));
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::WARNING, "WARNING"));
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::ERROR, "ERROR"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::FATAL, "FATAL"));
-	//m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "EXTRACT_DATA_1"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::FATAL, "FATAL"));	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 폴더이름 - 파일스트림 매칭
-	m_forderNameFileStreamMap.insert(std::make_pair("log", std::fstream{}));	// default
-	m_forderNameFileStreamMap.insert(std::make_pair("err", std::fstream{}));
-	//m_forderNameFileStreamMap.insert(std::make_pair("extract_data_1", std::fstream{}));
+	std::fstream* pFileStream{ nullptr };
 	
+	// default 로그 파일
+	pFileStream = new std::fstream;
+	m_logFileStreamVec.push_back(std::make_pair("log\\", pFileStream));
+	m_forderNameFileStreamMap.insert(std::make_pair("log", pFileStream));	
+
+	pFileStream = new std::fstream;
+	m_logFileStreamVec.push_back(std::make_pair("err\\", pFileStream));
+	m_forderNameFileStreamMap.insert(std::make_pair("err", pFileStream));	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 로그레벨 - 폴더이름 매칭 (매칭 안되있는 건 default폴더)
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::NONE, "err"));
-	// m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::TRACE, "TRACE"));
-	// m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::DEBUG, "DEBUG"));
-	// m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::INFO, "INFO"));
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::WARNING, "err"));
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::ERROR, "err"));
-	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::FATAL, "err"));
-	//m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "extract_data_1"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::FATAL, "err"));	
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * 새로운 로그 타입 추가시
+	 * 1번
+	 * m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "EXTRACT_DATA_1"));
+	 * 2번
+	 * pFileStream = new std::fstream;
+	 * m_logFileStreamVec.push_back(std::make_pair("extract_data_1", pFileStream));
+	 * m_forderNameFileStreamMap.insert(std::make_pair("extract_data_1", pFileStream));
+	 * 3번
+	 * m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "extract_data_1"));
+	*/
 	return false;
 }
 
@@ -55,7 +77,7 @@ bool BGLogManager::Start()
 {
 	if (!Init())
 		return false;
-
+	
 	if (m_pRunThread != nullptr)
 		return false;
 
@@ -80,9 +102,11 @@ bool BGLogManager::Stop()
 	delete m_pRunThread;
 	m_pRunThread = nullptr;
 
-	for (auto iter = m_forderNameFileStreamMap.begin(); iter != m_forderNameFileStreamMap.end(); iter++) {
-		if ((iter->second).is_open()) 
-			(iter->second).close();		
+	for (auto fStream : m_logFileStreamVec) {
+		if (fStream.second->is_open())
+			fStream.second->close();
+		delete fStream.second;
+		fStream.second = nullptr;
 	}
 
 	return false;
@@ -166,8 +190,61 @@ void BGLogManager::Push(BGLog& log)
 
 void BGLogManager::Write(BGLog &log)
 {
+	if (!CheckLogFileNameAndRenew()) {
+		RenewLogFileStream();
+	}
+
+	std::fstream* pDefault{ nullptr };
 	if (IsBasicLogLevel(log)) {
-		log.Write(m_defaultLogFileStream);
+		pDefault = m_logFileStreamVec[0].second;
+	}
+
+	std::fstream* pSpecific{ nullptr };
+	auto iter1 = m_logLevelForderNameMap.find(log.GetLevel());
+	if (iter1 != m_logLevelForderNameMap.end()) {
+		auto iter2 = m_forderNameFileStreamMap.find(iter1->second);
+		if (iter2 != m_forderNameFileStreamMap.end())
+			pSpecific = iter2->second;		
+	}
+	
+	if (pDefault)
+		log.Write(pDefault);
+	
+	if (pSpecific)
+		log.Write(pSpecific);
+}
+
+bool BGLogManager::CheckLogFileNameAndRenew()
+{
+	struct tm ltm;
+	time_t t = time(NULL);
+	localtime_s(&ltm, &t);
+
+	if (ltm.tm_hour != m_lastCreateFileName.tm_hour) {
+		m_lastCreateFileName = ltm;
+		return false;
+	}
+
+	return true;
+}
+
+void BGLogManager::RenewLogFileStream()
+{
+	char timestr[32];
+	sprintf_s(timestr, "%04d-%02d-%02d_%02d.LOG", m_lastCreateFileName.tm_year + 1900,
+		m_lastCreateFileName.tm_mon + 1,
+		m_lastCreateFileName.tm_mday,
+		m_lastCreateFileName.tm_hour);
+
+	for (auto fileStream : m_logFileStreamVec) {
+
+		if (fileStream.second->is_open())
+			fileStream.second->close();
+
+		std::string fileName{ fileStream.first };
+		fileName.append(timestr);
+		fileStream.second->open(fileName, std::ios::app);
+
 	}
 }
 
