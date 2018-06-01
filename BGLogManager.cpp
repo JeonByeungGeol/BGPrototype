@@ -94,7 +94,9 @@ bool BGLogManager::Start()
 */
 bool BGLogManager::Stop()
 {
-	//Push(BGLog{ ELogLevel::BG_INFO, "STOP" });
+	m_queueLock.lock();
+	m_queue.push(BGLog{ELogLevel::BG_INFO, "STOP"});
+	m_queueLock.unlock();
 
 	m_pRunThread->join();
 
@@ -203,7 +205,7 @@ void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 	char tmp[4000] = "";	
 	va_list args;
 	va_start(args, msg);
-	printf_s(tmp, _countof(tmp), msg, args);
+	sprintf_s(tmp, _countof(tmp), msg, args);
 	va_end(args);
 
 	// 로그 이름
@@ -218,7 +220,7 @@ void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 
 	// 로그 시간
 	char time_tmp[100] = "";
-	printf_s(time_tmp, "[%02d:%02d:%02d]", ltm.tm_hour, ltm.tm_min, ltm.tm_sec);
+	sprintf_s(time_tmp, "[%02d:%02d:%02d]", ltm.tm_hour, ltm.tm_min, ltm.tm_sec);
 	std::string logTime{ time_tmp };
 
 	// 로그 발생한 함수
@@ -231,7 +233,7 @@ void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 	logContents.append(logFunc);
 
 	// 조합
-	printf_s(result, L"%-10s %-7s %-s\n"
+	sprintf_s(result, "%-10s %-7s %-s\n"
 		, logTime.c_str()
 		, logName.c_str()
 		, logContents.c_str());
