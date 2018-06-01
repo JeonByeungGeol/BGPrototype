@@ -16,7 +16,7 @@ public:
 	bool Valid() { return m_logLevel != ELogLevel::NONE; }
 	bool IsStopRequest() { if (m_logLevel == ELogLevel::INFO && m_content == "STOP") return true; return false; }
 	ELogLevel GetLevel() { return m_logLevel; }
-	void Write(std::fstream fs) { fs << m_content; }
+	void Write(std::fstream* fs) { *fs << m_content; }
 
 private:
 	ELogLevel m_logLevel;
