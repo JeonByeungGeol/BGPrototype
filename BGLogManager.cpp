@@ -27,12 +27,12 @@ bool BGLogManager::Init()
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::WARNING, "WARNING"));
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::ERROR, "ERROR"));
 	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::FATAL, "FATAL"));
-	//m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA, "EXTRACT_DATA"));
+	//m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "EXTRACT_DATA_1"));
 
 	// 폴더이름 - 파일스트림 매칭
 	m_forderNameFileStreamMap.insert(std::make_pair("log", std::fstream{}));	// default
 	m_forderNameFileStreamMap.insert(std::make_pair("err", std::fstream{}));
-	//m_forderNameFileStreamMap.insert(std::make_pair("extract_data", std::fstream{}));
+	//m_forderNameFileStreamMap.insert(std::make_pair("extract_data_1", std::fstream{}));
 	
 	// 로그레벨 - 폴더이름 매칭 (매칭 안되있는 건 default폴더)
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::NONE, "err"));
@@ -42,7 +42,7 @@ bool BGLogManager::Init()
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::WARNING, "err"));
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::ERROR, "err"));
 	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::FATAL, "err"));
-	//m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA, "EXTRACT_DATA"));
+	//m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "extract_data_1"));
 
 	return false;
 }
@@ -109,6 +109,27 @@ bool BGLogManager::CheckLogLevel(BGLog & log)
 	return (log.GetLevel() > g_Config.GetInt("LogLevel"));
 }
 
+/**
+ * 로그레벨이 기본로그인지 검사합니다.
+ * 기본로그는 TRACE, DEBUG, INFO, WANING, ERROR, FATAL
+ * 6가지가 존재합니다.
+*/
+bool BGLogManager::IsBasicLogLevel(BGLog &log)
+{
+	auto level = log.GetLevel();
+	switch(level) {
+		case ELogLevel::TRACE:
+		case ELogLevel::DEBUG:
+		case ELogLevel::INFO:
+		case ELogLevel::WARNING:
+		case ELogLevel::ERROR:
+		case ELogLevel::FATAL:
+			return true;
+		default:
+			return false;
+	}
+}
+
 
 /**
  * Queue에서 로그를 꺼냅니다.
@@ -145,6 +166,7 @@ void BGLogManager::Push(BGLog& log)
 
 void BGLogManager::Write(BGLog &log)
 {
+
 }
 
 
