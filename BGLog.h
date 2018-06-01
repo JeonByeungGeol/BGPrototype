@@ -22,6 +22,9 @@ public:
 	// 로그 레벨을 얻습니다.
 	ELogLevel GetLevel() { return m_logLevel; }
 
+	// 로그 내용을 얻습니다.
+	std::string GetContents() { return m_content; }
+
 	// 로그를 파일에 씁니다.
 	void Write(std::fstream* fs) { *fs << m_content; }
 

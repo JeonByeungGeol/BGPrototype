@@ -269,8 +269,12 @@ void BGLogManager::Write(BGLog &log)
 			pSpecific = iter2->second;		
 	}
 	
-	if (pDefault)
+	if (pDefault) {
 		log.Write(pDefault);
+		
+		printf(log.GetContents().c_str());
+		fflush(stdout);
+	}
 	
 	if (pSpecific)
 		log.Write(pSpecific);
