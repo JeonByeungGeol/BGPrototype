@@ -113,7 +113,7 @@ bool BGLogManager::Stop()
 		fStream.second = nullptr;
 	}
 
-	return false;
+	return true;
 }
 
 /**
