@@ -187,7 +187,7 @@ BGLog BGLogManager::Pick()
 }
 
 /**
- * 로그를 Queue에 넣습니다.
+ * 로그를 시간, 레벨, 내용, 호출한 함수로 조합하여 Queue에 넣습니다.
  * 이후 전용스레드에서 하나씩 꺼내 처리합니다.
 */
 void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
@@ -245,6 +245,11 @@ void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 	m_queueLock.unlock();
 }
 
+/**
+ * 로그를 알맞은 파일에 기록합니다.
+ * 특정 로그파일이 없으면 디폴트 파일에 기록합니다.
+ * 디폴트 파일은 log폴더에 기록하고, m_logfileStreamVec 0번째 인덱스에 존재합니다.
+*/
 void BGLogManager::Write(BGLog &log)
 {
 	if (!CheckLogFileNameAndRenew()) {
@@ -271,6 +276,11 @@ void BGLogManager::Write(BGLog &log)
 		log.Write(pSpecific);
 }
 
+/**
+ * 파일이름은 시간단위로 갱신됩니다.
+ * 파일이 갱신되면 false를 리턴합니다.
+ * 기존 파일을 그대로 사용할 수 있으면 true를 리턴합니다.
+*/
 bool BGLogManager::CheckLogFileNameAndRenew()
 {
 	struct tm ltm;
@@ -285,6 +295,11 @@ bool BGLogManager::CheckLogFileNameAndRenew()
 	return true;
 }
 
+/**
+ * 기존 파일스트림을 닫고,
+ * 최신 파일 이름에 맞게 새로운 파일스트림을 생성합니다.
+ * CheckLogFileNameAndRenew()함수가 false를 리턴하면 해당함수를 호출합니다.
+*/
 void BGLogManager::RenewLogFileStream()
 {
 	char timestr[32];
@@ -305,7 +320,12 @@ void BGLogManager::RenewLogFileStream()
 	}
 }
 
-
+/**
+ * 로그 전용 스레드 함수 입니다.
+ * queue에서 로그를 꺼내 기록합니다.
+ * 로그 종료 요청이 있을때가지 동작합니다.
+ * Stop함수를 호출하면 해당 함수는 종료됩니다.
+*/
 void BGLogManager::Run(BGLogManager* pLogMgr)
 {
 	while (true)
@@ -317,9 +337,7 @@ void BGLogManager::Run(BGLogManager* pLogMgr)
 		if (pLogMgr->IsStopRequest(log)) {
 			return;
 		}
-
-		// 로그 파일 업데이트
-
+		
 		// 로그 쓰기
 		pLogMgr->Write(log);				
 	}

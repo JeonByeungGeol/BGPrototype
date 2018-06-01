@@ -66,8 +66,10 @@ public:
 	// log를 기록합니다.
 	void Write(BGLog&);
 	
+	// 파일이름이 최신이 아니라면 교체합니다.
 	bool CheckLogFileNameAndRenew();
 
+	// 최신 파일이름으로 파일스트림을 생성합니다.
 	void RenewLogFileStream();
 
 	///////////////////////////////

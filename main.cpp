@@ -15,22 +15,7 @@ int main()
 		std::cout << "g_LogManager.Start() Failed!" << std::endl;
 		return -1;
 	}
-
-	int test{ 0 };
-	BG_LOG_INFO("log test... %s", "tedddd");
-	BG_LOG_TRACE("log test... %d", test);
-	BG_LOG_DEBUG("log test... %d", 86);
-	BG_LOG_DEBUG("log test... %d", test);
-	BG_LOG_ERROR("log test... %d", test++);
-	BG_LOG_INFO("log test... %d", test++);
-	BG_LOG_FATAL("log test... %d", test++);
-	BG_LOG_ERROR("log test... %d", test++);
-	BG_LOG_ERROR("log test... %d", test++);
-	BG_LOG_WARNING("log test... %d", test++);
-	BG_LOG_ERROR("log test... %d", test++);
-	BG_LOG_WARNING("log test... %d", test++);
-	BG_LOG_DEBUG("log test... %d", test++);
-	
+		
 
 	while (1)
 	{
