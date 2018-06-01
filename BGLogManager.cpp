@@ -66,7 +66,7 @@ bool BGLogManager::Init()
 	 * 3¹ø
 	 * m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::BG_EXTRACT_DATA_1, "extract_data_1"));
 	*/
-	return false;
+	return true;
 }
 
 /**
@@ -82,8 +82,7 @@ bool BGLogManager::Start()
 		return false;
 
 	m_pRunThread = new std::thread{BGLogManager::Run, this};
-
-
+	
 	return true;
 }
 
