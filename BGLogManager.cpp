@@ -24,13 +24,13 @@ bool BGLogManager::Init()
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 로그레벨 - 로그이름 매칭
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::NONE, "NONE"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::TRACE, "TRACE"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::DEBUG, "DEBUG"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::INFO, "INFO"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::WARNING, "WARNING"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::ERROR, "ERROR"));
-	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::FATAL, "FATAL"));	
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_NONE, "NONE"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_TRACE, "TRACE"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_DEBUG, "DEBUG"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_INFO, "INFO"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_WARNING, "WARNING"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_ERROR, "ERROR"));
+	m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_FATAL, "FATAL"));	
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,22 +49,22 @@ bool BGLogManager::Init()
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 로그레벨 - 폴더이름 매칭 (매칭 안되있는 건 default폴더)
-	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::NONE, "err"));
-	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::WARNING, "err"));
-	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::ERROR, "err"));
-	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::FATAL, "err"));	
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::BG_NONE, "err"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::BG_WARNING, "err"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::BG_ERROR, "err"));
+	m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::BG_FATAL, "err"));	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * 새로운 로그 타입 추가시
 	 * 1번
-	 * m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "EXTRACT_DATA_1"));
+	 * m_logLevelLogNameMap.insert(std::make_pair(ELogLevel::BG_EXTRACT_DATA_1, "EXTRACT_DATA_1"));
 	 * 2번
 	 * pFileStream = new std::fstream;
 	 * m_logFileStreamVec.push_back(std::make_pair("extract_data_1", pFileStream));
 	 * m_forderNameFileStreamMap.insert(std::make_pair("extract_data_1", pFileStream));
 	 * 3번
-	 * m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::EXTRACT_DATA_1, "extract_data_1"));
+	 * m_logLevelForderNameMap.insert(std::make_pair(ELogLevel::BG_EXTRACT_DATA_1, "extract_data_1"));
 	*/
 	return false;
 }
@@ -95,7 +95,7 @@ bool BGLogManager::Start()
 */
 bool BGLogManager::Stop()
 {
-	Push(BGLog{ ELogLevel::INFO, "STOP" });
+	Push(BGLog{ ELogLevel::BG_INFO, "STOP" });
 
 	m_pRunThread->join();
 
@@ -130,7 +130,7 @@ bool BGLogManager::IsStopRequest(BGLog& log)
 */
 bool BGLogManager::CheckLogLevel(BGLog & log)
 {
-	return (log.GetLevel() > g_Config.GetInt("LogLevel"));
+	return (static_cast<int>(log.GetLevel()) > g_Config.GetInt("LogLevel"));
 }
 
 /**
@@ -142,12 +142,12 @@ bool BGLogManager::IsBasicLogLevel(BGLog &log)
 {
 	auto level = log.GetLevel();
 	switch(level) {
-		case ELogLevel::TRACE:
-		case ELogLevel::DEBUG:
-		case ELogLevel::INFO:
-		case ELogLevel::WARNING:
-		case ELogLevel::ERROR:
-		case ELogLevel::FATAL:
+		case ELogLevel::BG_TRACE:
+		case ELogLevel::BG_DEBUG:
+		case ELogLevel::BG_INFO:
+		case ELogLevel::BG_WARNING:
+		case ELogLevel::BG_ERROR:
+		case ELogLevel::BG_FATAL:
 			return true;
 		default:
 			return false;

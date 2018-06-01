@@ -5,7 +5,7 @@
 class BGLog
 {
 public:
-	BGLog() : m_logLevel(ELogLevel::NONE) {};
+	BGLog() : m_logLevel(ELogLevel::BG_NONE) {};
 	BGLog(ELogLevel level, std::string content)
 		: m_logLevel(level), m_content(content)
 	{}
@@ -13,8 +13,8 @@ public:
 
 
 public:
-	bool Valid() { return m_logLevel != ELogLevel::NONE; }
-	bool IsStopRequest() { if (m_logLevel == ELogLevel::INFO && m_content == "STOP") return true; return false; }
+	bool Valid() { return m_logLevel != ELogLevel::BG_NONE; }
+	bool IsStopRequest() { if (m_logLevel == ELogLevel::BG_INFO && m_content == "STOP") return true; return false; }
 	ELogLevel GetLevel() { return m_logLevel; }
 	void Write(std::fstream* fs) { *fs << m_content; }
 
