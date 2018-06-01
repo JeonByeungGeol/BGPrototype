@@ -100,6 +100,17 @@ bool BGLogManager::IsStopRequest(BGLog& log)
 }
 
 /**
+ * 기록해야 하는 로그인지 로그레벨로 검사합니다.
+ * bg_config.ini파일에 LogLevel의 값보다 커야
+ * 실제 로그를 기록할 수 있습니다.
+*/
+bool BGLogManager::CheckLogLevel(BGLog & log)
+{
+	return (log.GetLevel() > g_Config.GetInt("LogLevel"));
+}
+
+
+/**
  * Queue에서 로그를 꺼냅니다.
  * 꺼낸 로그는 Valid를 호출해서
  * 유효한 로그인지 확인한 후에 사용합니다.

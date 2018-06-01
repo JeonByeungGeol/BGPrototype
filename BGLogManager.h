@@ -41,6 +41,9 @@ public:
 	// 로그 시스템 종료요청로그인지 확인합니다.
 	bool IsStopRequest(BGLog&);
 
+	// 로그 레벨을 검사합니다.
+	bool CheckLogLevel(BGLog&);
+
 	// queue에서 로그를 하나 꺼냅니다.
 	BGLog& Pick();
 
