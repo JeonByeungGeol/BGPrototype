@@ -94,7 +94,7 @@ bool BGLogManager::Start()
 */
 bool BGLogManager::Stop()
 {
-	Push(BGLog{ ELogLevel::BG_INFO, "STOP" });
+	//Push(BGLog{ ELogLevel::BG_INFO, "STOP" });
 
 	m_pRunThread->join();
 
@@ -133,6 +133,11 @@ bool BGLogManager::IsStopRequest(BGLog& log)
 bool BGLogManager::CheckLogLevel(BGLog & log)
 {
 	return (static_cast<int>(log.GetLevel()) > g_Config.GetInt("LogLevel"));
+}
+
+bool BGLogManager::CheckLogLevel(ELogLevel level)
+{
+	return (static_cast<int>(level) > g_Config.GetInt("LogLevel"));
 }
 
 /**
@@ -183,8 +188,56 @@ BGLog & BGLogManager::Pick()
  * 로그를 Queue에 넣습니다.
  * 이후 전용스레드에서 하나씩 꺼내 처리합니다.
 */
-void BGLogManager::Push(BGLog& log)
+void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 {
+	if (!CheckLogLevel(level))
+		return;
+
+	struct tm ltm;
+	time_t t = time(NULL);
+	localtime_s(&ltm, &t);
+
+	char result[4096] = "";
+
+	// 로그 내용
+	char tmp[4000] = "";	
+	va_list args;
+	va_start(args, msg);
+	printf_s(tmp, _countof(tmp), msg, args);
+	va_end(args);
+
+	// 로그 이름
+	std::string logName{ "[" };
+	auto name = m_logLevelLogNameMap.find(level);
+	if (name == m_logLevelLogNameMap.end()) {
+		// 에러로그 추가
+		return;
+	}
+	logName.append(name->second);
+	logName.append("]");
+
+	// 로그 시간
+	char time_tmp[100] = "";
+	printf_s(time_tmp, "[%02d:%02d:%02d]", ltm.tm_hour, ltm.tm_min, ltm.tm_sec);
+	std::string logTime{ time_tmp };
+
+	// 로그 발생한 함수
+	std::string logFunc{ "(" };
+	logFunc.append(func_name);
+	logFunc.append(")");
+
+	std::string logContents{ tmp };
+	logContents.append(" - ");
+	logContents.append(logFunc);
+
+	// 조합
+	printf_s(result, L"%-10s %-7s %-s\n"
+		, logTime.c_str()
+		, logName.c_str()
+		, logContents.c_str());
+
+	BGLog log{ level, result };
+	
 	m_queueLock.lock();
 	m_queue.push(log);
 	m_queueLock.unlock();

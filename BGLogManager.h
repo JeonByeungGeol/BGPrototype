@@ -43,6 +43,7 @@ public:
 
 	// 로그 레벨을 검사합니다.
 	bool CheckLogLevel(BGLog&);
+	bool CheckLogLevel(ELogLevel);
 
 	// 로그 레벨이 기본레벨인지 검사합니다.(TRACE, DEBUG, INFO, WANING, ERROR, FATAL)
 	bool IsBasicLogLevel(BGLog&);
@@ -51,7 +52,7 @@ public:
 	BGLog& Pick();
 
 	// queue에 로그를 넣습니다.
-	void Push(BGLog&);
+	void PushLog(ELogLevel level, char* func_name, char* msg, ...);
 
 	// log를 기록합니다.
 	void Write(BGLog&);
