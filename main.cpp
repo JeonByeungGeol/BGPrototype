@@ -16,6 +16,7 @@ int main()
 		return -1;
 	}
 
+	g_LogManager.PushLog(ELogLevel::BG_INFO, __FUNCTION__, "test log...");
 	
 
 	while (1)
@@ -27,6 +28,11 @@ int main()
 			break;
 		}
 		Sleep(1000);
+	}
+
+	if (!g_LogManager.Stop()) {
+		std::cout << "g_LogManager.Stop() Failed!" << std::endl;
+		return -1;
 	}
 
     return 0;
