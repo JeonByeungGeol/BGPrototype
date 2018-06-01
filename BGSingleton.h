@@ -1,6 +1,8 @@
 #pragma once
 
 #include "BGConfigManager.h"
+#include "BGLogManager.h"
+
 /**
  * std::once_flag는 초기화 하지 않으며 std::call_once와 연동되어 멀티스레드 환경에서
  * 단 한번만 실행되는 것을 운영체제 차원에서 보장해 주도록 구현되었다.
@@ -23,6 +25,7 @@
 
 /** define으로 정의*/
 #define g_Config BGSingleton::Instance()->GetConfigManager()
+#define g_LogManager BGSingleton::Instance()->GetLogManager()
 
 
 class BGSingleton
@@ -51,12 +54,10 @@ public:
 	/** 싱글톤으로 생성할 객체*/
 private:
 	BGConfigManager m_ConfigManager;
+	BGLogManager m_LogManager;
 
 public:
 	BGConfigManager& GetConfigManager() { return m_ConfigManager; }
-
-
-
-
+	BGLogManager& GetLogManager() { return m_LogManager; }
 };
 

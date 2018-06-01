@@ -35,3 +35,4 @@
 // À¯Æ¿
 #include "BGSingleton.h"
 #include "BGConfigManager.h"
+#include "BGLogManager.h"
