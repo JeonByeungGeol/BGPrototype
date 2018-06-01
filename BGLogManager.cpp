@@ -166,7 +166,9 @@ void BGLogManager::Push(BGLog& log)
 
 void BGLogManager::Write(BGLog &log)
 {
-
+	if (IsBasicLogLevel(log)) {
+		log.Write(m_defaultLogFileStream);
+	}
 }
 
 

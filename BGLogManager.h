@@ -55,9 +55,12 @@ public:
 
 	// log를 기록합니다.
 	void Write(BGLog&);
-
-	// 로그 전용 스레드 함수 입니다.
+	
+	///////////////////////////////
+	// 로그 전용 스레드 함수 입니다
+	///////////////////////////////
 	static void Run(BGLogManager*);
+
 
 
 
@@ -67,6 +70,9 @@ private:
 
 	std::thread* m_pRunThread;
 	
+	std::fstream m_defaultLogFileStream;
+	std::fstream m_defaultLogFileName;
+
 	LogLevelLogNameMap m_logLevelLogNameMap;
 	ForderNameFileStreamMap m_forderNameFileStreamMap;
 	LogLevelForderNameMap m_logLevelForderNameMap;
