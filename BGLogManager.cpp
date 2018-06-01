@@ -167,18 +167,18 @@ bool BGLogManager::IsBasicLogLevel(BGLog &log)
  * 꺼낸 로그는 Valid를 호출해서
  * 유효한 로그인지 확인한 후에 사용합니다.
 */
-BGLog & BGLogManager::Pick()
+BGLog BGLogManager::Pick()
 {
 	m_queueLock.lock();		//--*--*--*--*--*--*--
-
-	BGLog& log = m_queue.front();
-
-	if (!log.Valid()) {
+	
+	if (m_queue.empty()) {
 		m_queueLock.unlock();	//**-**-**-**-**-**
-		return log;
+		return BGLog{};
 	}
 
+	BGLog log = m_queue.front();	
 	m_queue.pop();
+
 	m_queueLock.unlock();	//**-**-**-**-**-**
 
 	return log;
@@ -306,11 +306,9 @@ void BGLogManager::RenewLogFileStream()
 
 void BGLogManager::Run(BGLogManager* pLogMgr)
 {
-	BGLog log;
-
 	while (true)
 	{		
-		log = pLogMgr->Pick();
+		BGLog log = pLogMgr->Pick();
 		if (!log.Valid())
 			continue;
 		

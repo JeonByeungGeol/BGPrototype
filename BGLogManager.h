@@ -49,7 +49,7 @@ public:
 	bool IsBasicLogLevel(BGLog&);
 
 	// queue에서 로그를 하나 꺼냅니다.
-	BGLog& Pick();
+	BGLog Pick();
 
 	// queue에 로그를 넣습니다.
 	void PushLog(ELogLevel level, char* func_name, char* msg, ...);
