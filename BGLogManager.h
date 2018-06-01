@@ -1,6 +1,15 @@
 #pragma once
 
 #include "BGLog.h"
+
+#define BG_LOG_TRACE(...)		g_LogManager.PushLog(ELogLevel::E_TRACE,	__FUNCTION__, ##__VA_ARGS__)
+#define BG_LOG_DEBUG(...)		g_LogManager.PushLog(ELogLevel::BG_DEBUG,	__FUNCTION__, ##__VA_ARGS__)
+#define BG_LOG_INFO(...)		g_LogManager.PushLog(ELogLevel::BG_INFO,	__FUNCTION__, ##__VA_ARGS__)
+#define BG_LOG_WARNING(...)		g_LogManager.PushLog(ELogLevel::BG_WARNING,	__FUNCTION__, ##__VA_ARGS__)
+#define BG_LOG_ERROR(...)		g_LogManager.PushLog(ELogLevel::BG_ERROR,	__FUNCTION__, ##__VA_ARGS__)
+#define BG_LOG_FATAL(...)		g_LogManager.PushLog(ELogLevel::BG_FATAL,	__FUNCTION__, ##__VA_ARGS__)
+
+
 /**
  * <pre>
  * 로그를 관리한다.
@@ -45,7 +54,7 @@ public:
 	bool CheckLogLevel(BGLog&);
 	bool CheckLogLevel(ELogLevel);
 
-	// 로그 레벨이 기본레벨인지 검사합니다.(TRACE, DEBUG, INFO, WANING, ERROR, FATAL)
+	// 로그 레벨이 기본레벨인지 검사합니다.(기본로그레벨 : TRACE, DEBUG, INFO, WANING, ERROR, FATAL)
 	bool IsBasicLogLevel(BGLog&);
 
 	// queue에서 로그를 하나 꺼냅니다.

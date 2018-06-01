@@ -16,7 +16,7 @@ int main()
 		return -1;
 	}
 
-	g_LogManager.PushLog(ELogLevel::BG_INFO, __FUNCTION__, "test log...");
+	BG_LOG_INFO("log test... %d", 19);
 	
 
 	while (1)
