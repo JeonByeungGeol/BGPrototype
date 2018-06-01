@@ -2,7 +2,7 @@
 
 #include "BGLog.h"
 
-#define BG_LOG_TRACE(...)		g_LogManager.PushLog(ELogLevel::E_TRACE,	__FUNCTION__, ##__VA_ARGS__)
+#define BG_LOG_TRACE(...)		g_LogManager.PushLog(ELogLevel::BG_TRACE,	__FUNCTION__, ##__VA_ARGS__)
 #define BG_LOG_DEBUG(...)		g_LogManager.PushLog(ELogLevel::BG_DEBUG,	__FUNCTION__, ##__VA_ARGS__)
 #define BG_LOG_INFO(...)		g_LogManager.PushLog(ELogLevel::BG_INFO,	__FUNCTION__, ##__VA_ARGS__)
 #define BG_LOG_WARNING(...)		g_LogManager.PushLog(ELogLevel::BG_WARNING,	__FUNCTION__, ##__VA_ARGS__)
