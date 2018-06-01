@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="유틸">
-      <UniqueIdentifier>{e8d3c6a3-b2b7-465a-9c4a-3bc3cb97872e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="설정">
       <UniqueIdentifier>{e448a155-ccab-490e-8850-421ff2d5633a}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     </Filter>
     <Filter Include="로그">
       <UniqueIdentifier>{176ecb91-4afa-4135-beb6-41c4fe822827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="싱글톤 객체">
+      <UniqueIdentifier>{e8d3c6a3-b2b7-465a-9c4a-3bc3cb97872e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,7 +37,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="BGSingleton.h">
-      <Filter>유틸</Filter>
+      <Filter>싱글톤 객체</Filter>
     </ClInclude>
     <ClInclude Include="BGConst.h">
       <Filter>공통</Filter>
@@ -54,13 +54,16 @@
     <ClInclude Include="BGLogEnum.h">
       <Filter>로그</Filter>
     </ClInclude>
+    <ClInclude Include="BGSession.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BGSingleton.cpp">
-      <Filter>유틸</Filter>
+      <Filter>싱글톤 객체</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
@@ -73,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="BGLog.cpp">
       <Filter>로그</Filter>
+    </ClCompile>
+    <ClCompile Include="BGSession.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
