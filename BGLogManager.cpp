@@ -102,10 +102,7 @@ bool BGLogManager::Stop()
 
 	delete m_pRunThread;
 	m_pRunThread = nullptr;
-
-	BGLog log{ ELogLevel::BG_INFO, "LogManager Stop" };
-	log.Write(m_logFileStreamVec[0].second);
-
+	
 	for (auto fStream : m_logFileStreamVec) {
 		if (fStream.second->is_open())
 			fStream.second->close();
@@ -163,7 +160,6 @@ bool BGLogManager::IsBasicLogLevel(BGLog &log)
 	}
 }
 
-
 /**
  * Queue에서 로그를 꺼냅니다.
  * 꺼낸 로그는 Valid를 호출해서
@@ -212,7 +208,7 @@ void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 	std::string logName{ "[" };
 	auto name = m_logLevelLogNameMap.find(level);
 	if (name == m_logLevelLogNameMap.end()) {
-		// 에러로그 추가
+		BG_LOG_ERROR("logLevelLogNameMap.find() Failed! [logLevel=%d]", static_cast<int>(level));
 		return;
 	}
 	logName.append(name->second);
