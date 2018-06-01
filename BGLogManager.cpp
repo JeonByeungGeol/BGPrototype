@@ -199,13 +199,13 @@ void BGLogManager::PushLog(ELogLevel level, char* func_name, char* msg, ...)
 	time_t t = time(NULL);
 	localtime_s(&ltm, &t);
 
-	char result[4096] = "";
 
 	// 로그 내용
 	char tmp[4000] = "";	
+	char result[4096] = "";
 	va_list args;
 	va_start(args, msg);
-	sprintf_s(tmp, _countof(tmp), msg, args);
+	vsprintf_s(tmp, _countof(tmp), msg, args);
 	va_end(args);
 
 	// 로그 이름
