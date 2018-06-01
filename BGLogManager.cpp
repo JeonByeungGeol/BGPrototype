@@ -101,6 +101,9 @@ bool BGLogManager::Stop()
 	delete m_pRunThread;
 	m_pRunThread = nullptr;
 
+	BGLog log{ ELogLevel::BG_INFO, "LogManager Stop" };
+	log.Write(m_logFileStreamVec[0].second);
+
 	for (auto fStream : m_logFileStreamVec) {
 		if (fStream.second->is_open())
 			fStream.second->close();
