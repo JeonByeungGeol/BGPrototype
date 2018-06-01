@@ -149,6 +149,8 @@
     <ClInclude Include="BGConst.h" />
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogManager.h" />
+    <ClInclude Include="BGSession.h" />
+    <ClInclude Include="BGSessionManager.h" />
     <ClInclude Include="BGSingleton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -158,6 +160,8 @@
     <ClCompile Include="BGConfigManager.cpp" />
     <ClCompile Include="BGLog.cpp" />
     <ClCompile Include="BGLogManager.cpp" />
+    <ClCompile Include="BGSession.cpp" />
+    <ClCompile Include="BGSessionManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BGSingleton.cpp" />
     <ClCompile Include="stdafx.cpp">
