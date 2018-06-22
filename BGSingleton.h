@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../SettingSource/BGConfigManager.h"
-#include "./LogSource/BGLogManager.h"
+#include "BGConfigManager.h"
+#include "BGLogManager.h"
 
 /**
  * std::once_flag는 초기화 하지 않으며 std::call_once와 연동되어 멀티스레드 환경에서

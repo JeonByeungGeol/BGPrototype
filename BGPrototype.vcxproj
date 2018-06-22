@@ -145,25 +145,25 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bgconfigmanager.h" />
     <ClInclude Include="BGConst.h" />
-    <ClInclude Include="LogSource\BGLog.h" />
-    <ClInclude Include="LogSource\BGLogEnum.h" />
-    <ClInclude Include="LogSource\BGLogManager.h" />
-    <ClInclude Include="SessionSource\BGSession.h" />
-    <ClInclude Include="SessionSource\BGSessionManager.h" />
-    <ClInclude Include="SettingSource\bgconfigmanager.h" />
-    <ClInclude Include="SingletonSource\BGSingleton.h" />
+    <ClInclude Include="BGLog.h" />
+    <ClInclude Include="BGLogEnum.h" />
+    <ClInclude Include="BGLogManager.h" />
+    <ClInclude Include="BGSession.h" />
+    <ClInclude Include="BGSessionManager.h" />
+    <ClInclude Include="BGSingleton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LogSource\BGLog.cpp" />
-    <ClCompile Include="LogSource\BGLogManager.cpp" />
+    <ClCompile Include="BGConfigManager.cpp" />
+    <ClCompile Include="BGLog.cpp" />
+    <ClCompile Include="BGLogManager.cpp" />
+    <ClCompile Include="BGSession.cpp" />
+    <ClCompile Include="BGSessionManager.cpp" />
+    <ClCompile Include="BGSingleton.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SessionSource\BGSession.cpp" />
-    <ClCompile Include="SessionSource\BGSessionManager.cpp" />
-    <ClCompile Include="SettingSource\BGConfigManager.cpp" />
-    <ClCompile Include="SingletonSource\BGSingleton.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -172,7 +172,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SettingSource\bg_config.ini" />
+    <None Include="bg_config.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,9 +30,9 @@
 
 
 // 공통
-#include "./CommonSource/BGConst.h"
+#include "BGConst.h"
 
 // 유틸
-#include "./SingletonSource/BGSingleton.h"
-#include "./SettingSource/BGConfigManager.h"
-#include "./LogSource/BGLogManager.h"
+#include "BGSingleton.h"
+#include "BGConfigManager.h"
+#include "BGLogManager.h"
