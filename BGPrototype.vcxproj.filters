@@ -39,59 +39,59 @@
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BGSingleton.h">
-      <Filter>싱글톤 객체</Filter>
-    </ClInclude>
     <ClInclude Include="BGConst.h">
       <Filter>공통</Filter>
     </ClInclude>
-    <ClInclude Include="BGConfigManager.h">
+    <ClInclude Include="LogSource\BGLog.h">
+      <Filter>로그</Filter>
+    </ClInclude>
+    <ClInclude Include="LogSource\BGLogEnum.h">
+      <Filter>로그</Filter>
+    </ClInclude>
+    <ClInclude Include="LogSource\BGLogManager.h">
+      <Filter>로그</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionSource\BGSession.h">
+      <Filter>세션</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionSource\BGSessionManager.h">
+      <Filter>세션</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingSource\bgconfigmanager.h">
       <Filter>설정</Filter>
     </ClInclude>
-    <ClInclude Include="BGLogManager.h">
-      <Filter>로그</Filter>
-    </ClInclude>
-    <ClInclude Include="BGLog.h">
-      <Filter>로그</Filter>
-    </ClInclude>
-    <ClInclude Include="BGLogEnum.h">
-      <Filter>로그</Filter>
-    </ClInclude>
-    <ClInclude Include="BGSession.h">
-      <Filter>세션</Filter>
-    </ClInclude>
-    <ClInclude Include="BGSessionManager.h">
-      <Filter>세션</Filter>
+    <ClInclude Include="SingletonSource\BGSingleton.h">
+      <Filter>싱글톤 객체</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BGSingleton.cpp">
-      <Filter>싱글톤 객체</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BGConfigManager.cpp">
+    <ClCompile Include="LogSource\BGLog.cpp">
+      <Filter>로그</Filter>
+    </ClCompile>
+    <ClCompile Include="LogSource\BGLogManager.cpp">
+      <Filter>로그</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionSource\BGSession.cpp">
+      <Filter>세션</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionSource\BGSessionManager.cpp">
+      <Filter>세션</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingSource\BGConfigManager.cpp">
       <Filter>설정</Filter>
     </ClCompile>
-    <ClCompile Include="BGLogManager.cpp">
-      <Filter>로그</Filter>
-    </ClCompile>
-    <ClCompile Include="BGLog.cpp">
-      <Filter>로그</Filter>
-    </ClCompile>
-    <ClCompile Include="BGSessionManager.cpp">
-      <Filter>세션</Filter>
-    </ClCompile>
-    <ClCompile Include="BGSession.cpp">
-      <Filter>세션</Filter>
+    <ClCompile Include="SingletonSource\BGSingleton.cpp">
+      <Filter>싱글톤 객체</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bg_config.ini">
+    <None Include="SettingSource\bg_config.ini">
       <Filter>설정</Filter>
     </None>
   </ItemGroup>

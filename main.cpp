@@ -15,7 +15,6 @@ int main()
 		std::cout << "g_LogManager.Start() Failed!" << std::endl;
 		return -1;
 	}
-		
 
 	while (1)
 	{
