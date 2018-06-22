@@ -2,6 +2,27 @@
 
 /**
 * <pre>
+* 세션 데이터
+* </pre>
+*/
+struct BG_SESSION_DATA
+{
+	int sampleData1;
+
+	std::string sampleData2;
+
+	long sampleData3;
+
+	void Reset() {
+		sampleData1 = 0;
+		sampleData2.clear;
+		sampleData3 = 0.0;
+	}
+};
+
+
+/**
+* <pre>
 * 세션 객체
 * </pre>
 */
@@ -25,5 +46,8 @@ private:
 
 	/** 세션 인덱스 : 값은 한번 정의 되면, 바뀌지 않습니다.*/
 	int m_Index;
+	
+	/** 데이터*/
+	BG_SESSION_DATA m_Data;
 };
 

@@ -19,5 +19,7 @@ BGSession * BGSession::Create(const int & index)
 
 bool BGSession::Reset()
 {
+	m_Data.Reset();
+	
 	return true;
 }
