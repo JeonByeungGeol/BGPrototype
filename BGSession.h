@@ -13,12 +13,10 @@ struct BG_SESSION_DATA
 
 	std::string sampleData2;
 
-	long sampleData3;
 
 	void Reset() {
 		sampleData1 = 0;
-		sampleData2.clear;
-		sampleData3 = 0.0;
+		sampleData2.clear();
 	}
 };
 

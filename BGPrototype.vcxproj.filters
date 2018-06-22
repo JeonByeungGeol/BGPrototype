@@ -63,6 +63,9 @@
     <ClInclude Include="BGLogManager.h">
       <Filter>로그</Filter>
     </ClInclude>
+    <ClInclude Include="BGSessionEnum.h">
+      <Filter>세션</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

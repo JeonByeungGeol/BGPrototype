@@ -151,6 +151,7 @@
     <ClInclude Include="BGLogEnum.h" />
     <ClInclude Include="BGLogManager.h" />
     <ClInclude Include="BGSession.h" />
+    <ClInclude Include="BGSessionEnum.h" />
     <ClInclude Include="BGSessionManager.h" />
     <ClInclude Include="BGSingleton.h" />
     <ClInclude Include="stdafx.h" />
