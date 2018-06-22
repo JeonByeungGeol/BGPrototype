@@ -23,6 +23,7 @@
 #include <map>
 #include <queue>
 #include <vector>
+#include <array>
 
 #include <thread>
 #include <mutex>
