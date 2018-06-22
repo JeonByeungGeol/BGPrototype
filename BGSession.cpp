@@ -16,3 +16,8 @@ BGSession * BGSession::Create(const int & index)
 {
 	return new BGSession(index);
 }
+
+bool BGSession::Reset()
+{
+	return true;
+}

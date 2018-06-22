@@ -14,6 +14,8 @@ public:
 	/** 새 새션을 만듭니다 */
 	static BGSession* Create(const int& index);
 
+	/** 세션을 초기화 시킵니다.*/
+	bool Reset();
 
 
 
