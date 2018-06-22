@@ -9,7 +9,6 @@
 class BGSession
 {
 public:
-	BGSession();
 	~BGSession();
 
 	/** 새 새션을 만듭니다 */

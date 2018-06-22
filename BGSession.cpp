@@ -2,7 +2,8 @@
 #include "BGSession.h"
 
 
-BGSession::BGSession()
+BGSession::BGSession(const int& index)
+	: m_Index(index)
 {
 }
 
