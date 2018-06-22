@@ -38,6 +38,16 @@ bool BGSessionManager::Stop()
 	return true;
 }
 
+BGSession * BGSessionManager::GetSession(int index)
+{
+	if (index >= BG_SESSION_POOL_SIZE) {
+		BG_LOG_ERROR("index >= BG_SESSION_POOL_SIZE");
+		return nullptr;
+	}
+
+	return m_SessionArray[index];
+}
+
 /**
  * 세션 풀에서 사용가능한 세션을 하나 얻어옵니다.
  * 이때, 사용가능한 세션 풀에서 제거하기 때문에 이후에 반드시 AddSession을 호출해야 합니다.
@@ -74,6 +84,35 @@ bool BGSessionManager::ReturnSession(BGSession * pSession)
 	m_SessionQueueMutex.lock();
 	m_UnusedSessionQueue.push(pSession);
 	m_SessionQueueMutex.unlock();
+
+	return true;
+}
+
+bool BGSessionManager::AddSession(BGSession * pSession)
+{
+	if (pSession == nullptr) {
+		BG_LOG_ERROR("pSession is nullptr");
+		return false;
+	}
+
+	return true;
+}
+
+bool BGSessionManager::RemoveSession(BGSession * pSession)
+{
+	if (pSession == nullptr) {
+		BG_LOG_ERROR("pSession is nullptr");
+		return false;
+	}
+
+	// 세션을 반납하기 이전에 세션정보 초기화
+	pSession->Reset();
+	
+	// 세션 반납
+	if (false == ReturnSession(pSession)) {
+		BG_LOG_ERROR("ReturnSession is fail");
+		return false;
+	}
 
 	return true;
 }
