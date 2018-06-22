@@ -3,7 +3,7 @@
 
 
 BGSession::BGSession(const int& index)
-	: m_Index(index)
+	: m_Index(index), m_State(ESessionState::BG_NONE)
 {
 }
 
@@ -19,6 +19,7 @@ BGSession * BGSession::Create(const int & index)
 
 bool BGSession::Reset()
 {
+	m_State = ESessionState::BG_NONE;
 	m_Data.Reset();
 	
 	return true;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "BGSessionEnum.h"
+
 /**
 * <pre>
 * 세션 데이터
@@ -47,6 +49,9 @@ private:
 	/** 세션 인덱스 : 값은 한번 정의 되면, 바뀌지 않습니다.*/
 	int m_Index;
 	
+	/** 세션 상태*/
+	ESessionState m_State;
+
 	/** 데이터*/
 	BG_SESSION_DATA m_Data;
 };
