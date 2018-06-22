@@ -7,12 +7,17 @@
 int main()
 {
 	if (!g_Config.Load()) {
-		std::cout << "g_Config.Load() Failed!" << std::endl;
+		std::cout << "g_Config.Load failed" << std::endl;
 		return -1;
 	}
 	
 	if (!g_LogManager.Start()) {
-		std::cout << "g_LogManager.Start() Failed!" << std::endl;
+		std::cout << "g_LogManager.Start failed" << std::endl;
+		return -1;
+	}
+
+	if (!g_SessionManager.Start()) {
+		BG_LOG_ERROR("g_SessionManager.Start failed");
 		return -1;
 	}
 
@@ -27,8 +32,14 @@ int main()
 		Sleep(1000);
 	}
 
+	if (!g_SessionManager.Stop()) {
+		BG_LOG_ERROR("g_SessionManager.Stop failed");
+		return -1;
+	}
+
+
 	if (!g_LogManager.Stop()) {
-		std::cout << "g_LogManager.Stop() Failed!" << std::endl;
+		std::cout << "g_LogManager.Stop failed" << std::endl;
 		return -1;
 	}
 
