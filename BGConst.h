@@ -4,4 +4,4 @@
 static const char* const BG_CONFIG_FILE_NAME = "bg_config.ini";
 
 /** 세션 풀 크기*/
-static const int BG_SESSION_POOL_SIZE = 10000;
+static const int BG_SESSION_POOL_SIZE = 10001;

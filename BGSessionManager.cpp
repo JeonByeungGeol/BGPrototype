@@ -13,7 +13,7 @@ BGSessionManager::~BGSessionManager()
 
 bool BGSessionManager::Start()
 {
-	for (int i = 1; i <= BG_SESSION_POOL_SIZE; i++)
+	for (int i = 0; i < BG_SESSION_POOL_SIZE; i++)
 	{
 		BGSession * pSession{ nullptr };
 		pSession = BGSession::Create(i);
