@@ -10,6 +10,8 @@
 
 class BGSessionManager
 {
+	using UnusedSessionQueue = std::queue<BGSession*>;
+
 public:
 	BGSessionManager();
 	~BGSessionManager();
@@ -19,5 +21,9 @@ public:
 
 	/** 세션메니저 사용을 종료합니다.*/
 	bool Stop();
+
+private:
+	/** 사용할 수 있는 세션 큐*/
+	UnusedSessionQueue m_UnusedSessionQueue;
 };
 
