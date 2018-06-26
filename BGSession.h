@@ -38,6 +38,9 @@ public:
 	/** 세션을 초기화 시킵니다.*/
 	bool Reset();
 
+	/** 세션 상태를 설정합니다.*/
+	void SetState(ESessionState);
+
 	/** 데이터*/
 	BG_SESSION_DATA m_Data;
 

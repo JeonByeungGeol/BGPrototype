@@ -24,3 +24,8 @@ bool BGSession::Reset()
 	
 	return true;
 }
+
+void BGSession::SetState(ESessionState state)
+{
+	m_State = state;
+}
