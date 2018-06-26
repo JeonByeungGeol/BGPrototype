@@ -41,6 +41,9 @@ public:
 	/** 세션 상태를 설정합니다.*/
 	void SetState(ESessionState);
 
+	/** 세션 상태를 확인합니다.*/
+	bool IsState(ESessionState);
+
 	/** 데이터*/
 	BG_SESSION_DATA m_Data;
 
