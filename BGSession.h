@@ -38,7 +38,8 @@ public:
 	/** 세션을 초기화 시킵니다.*/
 	bool Reset();
 
-
+	/** 데이터*/
+	BG_SESSION_DATA m_Data;
 
 private:
 	/** 외부 생성 금지 */
@@ -48,9 +49,6 @@ private:
 	int m_Index;
 	
 	/** 세션 상태*/
-	ESessionState m_State;
-
-	/** 데이터*/
-	BG_SESSION_DATA m_Data;
+	ESessionState m_State;	
 };
 
