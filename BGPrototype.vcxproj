@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="bgconfigmanager.h" />
     <ClInclude Include="BGConst.h" />
+    <ClInclude Include="BGErrorEnum.h" />
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogEnum.h" />
     <ClInclude Include="BGLogManager.h" />
