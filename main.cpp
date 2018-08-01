@@ -26,6 +26,12 @@ int main()
 		return -1;
 	}
 
+	TestTimerObject testObject;
+	BGTimerParam param{ nullptr, nullptr, nullptr, nullptr };
+	g_Timer.Push(10000, &testObject, 1, param);
+	g_Timer.Push(15000, &testObject, 1, param);
+	g_Timer.Push(5000, &testObject, 0, param);
+
 	while (1)
 	{
 		char c;
