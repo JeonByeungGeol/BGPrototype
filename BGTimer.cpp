@@ -76,7 +76,7 @@ void BGTimer::Run()
 			continue;
 		}
 
-		BG_ERROR::Timer error = token->m_Object->TimerProcess(token);
+		BG_ERROR::Timer error = token->m_Object->TimerProcess(token->m_TimerEventType, token->m_Params);
 		if (BG_ERROR::Timer::BG_NONE != error) {
 			BG_LOG_ERROR("[error=%d]", BG_ERROR::ErrorCode(error));
 		}
