@@ -28,6 +28,9 @@
     <Filter Include="세션">
       <UniqueIdentifier>{b033701e-5254-4757-980d-8b2d704903f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="타이머">
+      <UniqueIdentifier>{358632ed-6718-404a-a781-0ee162aa6c3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -72,6 +75,9 @@
     <ClInclude Include="BGErrorEnum.h">
       <Filter>공통</Filter>
     </ClInclude>
+    <ClInclude Include="BGTimer.h">
+      <Filter>타이머</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="BGUtil.cpp">
       <Filter>공통</Filter>
+    </ClCompile>
+    <ClCompile Include="BGTimer.cpp">
+      <Filter>타이머</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -30,6 +30,8 @@ bool BGConfigManager::Load()
 			continue;
 		}
 
+		// 技盒拳等 Config 甘 包府
+		
 		fs >> v;
 
 		m_ConfigMap.insert(std::make_pair(k, v));

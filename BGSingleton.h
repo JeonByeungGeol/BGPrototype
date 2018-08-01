@@ -29,7 +29,7 @@
 #define g_Config BGSingleton::Instance()->GetConfigManager()
 #define g_LogManager BGSingleton::Instance()->GetLogManager()
 #define g_SessionManager BGSingleton::Instance()->GetSessionManager()
-#define g_Timer BGSingleton::Instance()->GetTimer();
+#define g_Timer BGSingleton::Instance()->GetTimer()
 
 /** 사용자 정의*/
 
