@@ -10,4 +10,4 @@ static const int BG_SESSION_POOL_SIZE = 10001;
 
 
 /** 타이머에서 동작할 스레드 갯수*/
-static const int BG_TIMER_THREAD_NUM = 3;
+static const int BG_TIMER_THREAD_NUM = 1;
