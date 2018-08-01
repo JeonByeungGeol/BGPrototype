@@ -53,6 +53,7 @@ void BGTimer::Run()
 	BG_LOG_TRACE("timerthread run");
 
 	while (1) {	
+		// 타이머가 동작중인지 확인
 		m_RunSharedLock.lock_shared();
 		if (m_bTimerRunning == false) {
 			m_RunSharedLock.unlock_shared();
@@ -60,13 +61,22 @@ void BGTimer::Run()
 		}
 		m_RunSharedLock.unlock_shared();
 
+		// 작업이 있는지 확인
 		m_queueLock.lock();		
 		if (m_queue.empty()) {
 			m_queueLock.unlock();
 			continue;
 		}
 
+		// 가장 빠른 작업 실행 시간이 되었는지 확인
+		std::chrono::system_clock::duration duEpoch = std::chrono::system_clock::now().time_since_epoch();
+		__int64 nowTimePoint = std::chrono::duration_cast<std::chrono::milliseconds>(duEpoch).count();
 		TimerToken token = m_queue.top();
+		if (nowTimePoint < token->m_ExecTime) {
+			m_queueLock.unlock();
+			continue;
+		}
+
 		m_queue.pop();
 		m_queueLock.unlock();
 
@@ -89,7 +99,16 @@ void BGTimer::Run()
 	BG_LOG_TRACE("timerthread exit");
 }
 
-void BGTimer::Push(IBGTimerObject* pObject, int type, std::vector<void*> params)
+void BGTimer::Push(__int64 milSec, IBGTimerObject* pObject, int type, BGTimerParam params)
 {
-	m_queue.push(new BGTimerToken{pObject, type, params});
+	std::chrono::system_clock::duration duEpoch = std::chrono::system_clock::now().time_since_epoch();
+	__int64 nowTimePoint = std::chrono::duration_cast<std::chrono::milliseconds>(duEpoch).count();
+
+	m_queueLock.lock();
+	m_queue.push(new BGTimerToken{
+		nowTimePoint + (milSec)
+		, pObject
+		, type
+		, params});
+	m_queueLock.unlock();
 }
