@@ -1,7 +1,19 @@
 #pragma once
+
+#include "IBGTimerObject.h"
+
+class BGTimerToken
+{
+public:
+	IBGTimerObject* m_Object;
+	int m_TimerEventType;
+	std::vector<void*> m_Params;
+
+};
+
 class BGTimer
 {
-	using TimerToken = int*;
+	using TimerToken = BGTimerToken*;
 	using TimerQueue = std::priority_queue<std::chrono::milliseconds, std::vector<TimerToken>>;
 
 public:

@@ -78,6 +78,9 @@
     <ClInclude Include="BGTimer.h">
       <Filter>타이머</Filter>
     </ClInclude>
+    <ClInclude Include="IBGTimerObject.h">
+      <Filter>타이머</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

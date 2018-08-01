@@ -76,6 +76,10 @@ void BGTimer::Run()
 			continue;
 		}
 
+		BG_ERROR::Timer error = token->m_Object->TimerProcess(token);
+		if (BG_ERROR::Timer::BG_NONE != error) {
+			BG_LOG_ERROR("[error=%d]", BG_ERROR::ErrorCode(error));
+		}
 	}
 
 	BG_LOG_TRACE("timerthread exit");
