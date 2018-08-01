@@ -32,6 +32,7 @@
 
 // 공통
 #include "BGConst.h"
+#include "BGErrorEnum.h"
 
 // 유틸
 #include "BGSingleton.h"
