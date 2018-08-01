@@ -5,6 +5,11 @@
 class BGTimerToken
 {
 public:
+	BGTimerToken(IBGTimerObject* pObject, int type, std::vector<void*> params)
+		: m_Object(pObject), m_TimerEventType(type), m_Params(params)
+	{}
+
+public:
 	IBGTimerObject* m_Object;
 	int m_TimerEventType;
 	std::vector<void*> m_Params;
@@ -27,9 +32,10 @@ public:
 	// 타이머 시스템을 종료합니다.
 	bool Stop();
 	
-	/** 타이머에서 동작할 스레드 입니다.*/
-	void Run();
+	
 
+	/** 타이머 작업 추가 */
+	void Push(IBGTimerObject*, int, std::vector<void*>);
 
 private:
 	std::shared_mutex m_RunSharedLock;
@@ -43,5 +49,8 @@ private:
 
 	/** 스레드에서 동작할 멤버함수(Run)  생성*/
 	std::thread* RunSpawn();
+
+	/** 타이머에서 동작할 스레드 입니다. */
+	void Run();
 };
 

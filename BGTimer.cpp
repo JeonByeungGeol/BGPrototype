@@ -70,7 +70,7 @@ void BGTimer::Run()
 		m_queue.pop();
 		m_queueLock.unlock();
 
-		// token으로 작업 시작!
+		// token으로 작업 시작
 		if (token == nullptr) {
 			BG_LOG_ERROR("1");
 			continue;
@@ -80,7 +80,16 @@ void BGTimer::Run()
 		if (BG_ERROR::Timer::BG_NONE != error) {
 			BG_LOG_ERROR("[error=%d]", BG_ERROR::ErrorCode(error));
 		}
+
+		// 사용한 token 삭제
+		delete token;
+		token = nullptr;
 	}
 
 	BG_LOG_TRACE("timerthread exit");
+}
+
+void BGTimer::Push(IBGTimerObject* pObject, int type, std::vector<void*> params)
+{
+	m_queue.push(new BGTimerToken{pObject, type, params});
 }
